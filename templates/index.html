@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+        }
+
+        .dashboard-container {
+            background: white;
+            width: 600px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 5px solid;
+            animation: rgbBorder 3s infinite alternate;
+        }
+
+        @keyframes rgbBorder {
+            0% { border-color: #63b4f1; }
+            50% { border-color: #ff6b6b; }
+            100% { border-color: #63fba6; }
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result-box {
+            margin-top: 20px;
+            display: none;
+            padding: 15px;
+            border-radius: 10px;
+            background: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h2>Leak Detector Dashboard</h2>
+        <input type="text" id="input1" placeholder="Subject">
+        <input type="text" id="input2" placeholder="Message Content">
+        <input type="email" id="input3" placeholder="Enter Email">
+        <button id="analyzeButton">Analyze</button>
+        <div class="result-box" id="resultBox"></div>
+    </div>
+    <script>
+        document.getElementById('analyzeButton').addEventListener('click', async () => {
+            const field1 = document.getElementById('input1').value;
+            const field2 = document.getElementById('input2').value;
+            const email = document.getElementById('input3').value;
+
+            const response = await fetch('/send_message', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ subject: field1, content: field2, recipient: email })
+            });
+
+            const result = await response.json();
+            const resultBox = document.getElementById('resultBox');
+            resultBox.style.display = 'block';
+            resultBox.textContent = result.message;
+        });
+    </script>
+</body>
+</html>
