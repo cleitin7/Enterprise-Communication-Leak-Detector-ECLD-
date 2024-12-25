@@ -36,7 +36,7 @@ Before running the project, ensure you have the following installed:
 ### **1. Clone the Repository**
 Use the following command to clone the repository:
 ```bash
-git clone https://github.com/your-username/ecld-project.git
+git clone https://github.com/cleitin7/ecld-project.git
 ```
 
 ### **2. Navigate to the Directory**
